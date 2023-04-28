@@ -23,21 +23,32 @@
     background-color: #3F8BC8;
     transition: 0.3s all;
   }
+
+  #record {
+    width: 300px;
+    height: 90vh;
+    padding: 10px;
+    white-space: pre;
+    background-color: #fff;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+  }
 </style>
 
 <body>
-  <div>
-    div 个数: <input id="domNum" value="100000" type="number" />
+  <div style="margin-bottom: 20px;">
+    div 个数: <input id="domNum" value="10000" type="number" style="margin-right: 20px;" />
     <input id="btnCreate" type="button" value="生成" style="margin-right: 20px;">
-    document.querySelectorAll: <span id="sumDom" style="margin-right: 20px;">0</span>
-    useTime: <span id="useTime" style="margin-right: 20px;">0</span>
+    总节点数: <span id="sumDom" style="margin-right: 20px;">0</span>
+    耗时: <span id="useTime" style="margin-right: 20px;">0</span>
   </div>
-  <section id="container">
-
-
-  </section>
+  <div style="display: flex;">
+    <div id="record">运行记录:</div>
+    <section id="container" style="flex:1"></section>
+  </div>
 </body>
 <script>
+  const $record = document.getElementById('record')
   const $domNum = document.getElementById('domNum')
   const $useTime = document.getElementById('useTime')
   const $sumDom = document.getElementById('sumDom')
@@ -48,7 +59,7 @@
     $sumDom.innerHTML = '节点生成中...'
     const $fragment = document.createDocumentFragment();
     const domNum = parseInt($domNum.value) || 0;
-    const timeStr = new Date().toLocaleTimeString();
+    const timeStr = new Date().toLocaleTimeString() + '.' + (new Date().getTime()).toString().substr(-2)
     for (let index = domNum; index > 0; index--) {
       const $div = document.createElement('div')
       $div.classList.add('item')
@@ -59,9 +70,11 @@
     $container.innerHTML = ''
     $container.appendChild($fragment)
     $sumDom.innerHTML = document.querySelectorAll('*').length
-    $useTime.innerHTML = endTime - startTime
+    $useTime.innerHTML = (endTime - startTime) + 'ms'
+    $record.innerHTML += `\n节点数:${domNum}`.padEnd(20, '  ').substr(0, 20) + `耗时:${endTime - startTime}` + 'ms'
   })
   $sumDom.innerHTML = document.querySelectorAll('*').length
+  $btnCreate.click();
 </script>
 
 </html>

@@ -26,25 +26,39 @@
       background-color: #3F8BC8;
       transition: 0.3s all;
     }
+
+    #record {
+      width: 400px;
+      height: 90vh;
+      padding: 10px;
+      white-space: pre;
+      background-color: #fff;
+      border: solid 1px #ccc;
+      border-radius: 4px;
+    }
   </style>
 </head>
 
 <body>
-  <section id="app" v-cloak>
-    <div>
-      div 个数: <input v-model="domNumStr" type="number" />
-      <input @click="create" type="button" value="生成" style="margin-right: 20px;" />
-      document.querySelectorAll: <span style="margin-right: 20px;">{{querySelectorAll}}</span>
-      useTime: <span style="margin-right: 20px;">{{useTime}}</span>
-    </div>
-    <section id="container">
-      <container-component v-for="index in domNum" :key="useKey ? index : currentTimeStr + index" :show-str="currentTimeStr + '\n' + (domNum - index).toString().padStart(domNum.length, 0)" />
+  <div style="margin-bottom: 20px;">
+    div 个数: <input id="domNumStr" type="number" value="10000" style="margin-right: 20px;" />
+    使用 :key 缓存 dom: <input id="useKey" type="checkbox" style="margin-right: 20px;" />
+    <input id="isCreating" type="button" value="生成" style="margin-right: 20px;" />
+    总节点数: <span id="querySelectorAll" style="margin-right: 20px;"></span>
+    耗时: <span id="useTime" style="margin-right: 20px;"></span>
+  </div>
+  <div style="display: flex;">
+    <div id="record">运行记录:</div>
+    <section id="app" v-cloak>
+      <container-component v-for="index in domNum" :key="randomKey + '' + index"
+        :show-str="currentTimeStr + '\n' + (domNum - index).toString().padStart(domNum.length, 0)" />
     </section>
-  </section>
+  </div>
 </body>
 
 <!--vue 前端框架-->
 <script src="//upyun.luckly-mjw.cn/lib/vue.js"></script>
+
 <script>
   const containerComponent = {
     template: `<div class="item">{{showStr}}</div>`,
@@ -52,39 +66,50 @@
       showStr: String,
     },
   }
-  new Vue({
+  const vueInstance = new Vue({
     el: '#app',
     components: {
       'container-component': containerComponent,
     },
     data() {
       return {
-        useKey: false,
         domNum: 0,
-        domNumStr: '100000',
-        useTime: '',
+        randomKey: Math.floor(Math.random() * 100),
         currentTimeStr: '',
-        querySelectorAll: '',
       }
     },
 
     methods: {
       create(index) {
-        this.currentTimeStr = new Date().toLocaleTimeString()
-        this.domNum = parseInt(this.domNumStr)
-        const startTime = new Date().getTime()
-        this.$nextTick(() => {
-          this.useTime = new Date().getTime() - startTime;
-          this.querySelectorAll = document.querySelectorAll('*').length
-        })
+        document.getElementById('isCreating').value = '生成中';
+        document.getElementById('isCreating').disabled = true;
+        const useKey = document.getElementById('useKey').checked;
+        setTimeout(() => {
+          if (!useKey) {
+            this.randomKey = Math.floor(Math.random() * 100)
+          }
+          console.log('this.randomKey', this.randomKey)
+          this.currentTimeStr = new Date().toLocaleTimeString() + '.' + (new Date().getTime()).toString().substr(-2)
+          this.domNum = parseInt(document.getElementById('domNumStr').value)
+          const startTime = new Date().getTime()
+          this.$nextTick(() => {
+            const useTime = new Date().getTime() - startTime;
+            document.getElementById('isCreating').value = '生成';
+            document.getElementById('isCreating').disabled = false;
+            document.getElementById('useTime').innerHTML = useTime + 'ms'
+            document.getElementById('querySelectorAll').innerHTML = document.querySelectorAll('*').length
+            document.getElementById('record').innerHTML += `\n节点数:${this.domNum}，` + `${useKey ? '' : '不'}` + '使用 :key 缓存节点，' + `耗时:${useTime}` + 'ms'
+          })
+        }, 100)
       },
     },
 
     mounted() {
-      this.querySelectorAll = document.querySelectorAll('*').length
+      document.getElementById('querySelectorAll').innerHTML = document.querySelectorAll('*').length
     },
-
   })
+  vueInstance.create();
+  document.getElementById('isCreating').addEventListener('click', vueInstance.create)
 </script>
 
 </html>
