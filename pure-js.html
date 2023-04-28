@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>dom</title>
+  <title>pure js</title>
 </head>
 <style>
   .item {
@@ -13,13 +13,13 @@
     margin: 4px;
     padding: 4px 0;
     width: 80px;
-    color: #333;
+    color: white;
     font-size: 14px;
     line-height: 15px;
     text-align: center;
     border-radius: 4px;
     white-space: pre-line;
-    border: solid 1px #eeeeee;
+    border: solid 1px #ddd;
     background-color: #3F8BC8;
     transition: 0.3s all;
   }
@@ -36,14 +36,17 @@
 </style>
 
 <body>
-  <div style="margin-bottom: 20px;">
-    div 个数: <input id="domNum" value="10000" type="number" style="margin-right: 20px;" />
-    <input id="btnCreate" type="button" value="生成" style="margin-right: 20px;">
-    总节点数: <span id="sumDom" style="margin-right: 20px;">0</span>
-    耗时: <span id="useTime" style="margin-right: 20px;">0</span>
-  </div>
   <div style="display: flex;">
-    <div id="record">运行记录:</div>
+    <div>
+      <div style="margin-bottom: 10px;">
+        div 个数: <input id="domNum" value="10000" type="number" style="margin-right: 20px;" />
+        <input id="btnCreate" type="button" value="生成" style="margin-right: 20px;">
+        <br />
+        总节点数: <span id="sumDom" style="margin-right: 20px;">0</span>
+        耗时: <span id="useTime" style="margin-right: 20px;">0</span>
+      </div>
+      <div id="record">运行记录:</div>
+    </div>
     <section id="container" style="flex:1"></section>
   </div>
 </body>
@@ -66,12 +69,12 @@
       $div.innerHTML = timeStr + '\n' + index.toString().padStart($domNum.value.length, 0)
       $fragment.appendChild($div)
     }
-    const endTime = new Date().getTime()
+    const useTime = new Date().getTime() - startTime
     $container.innerHTML = ''
     $container.appendChild($fragment)
     $sumDom.innerHTML = document.querySelectorAll('*').length
-    $useTime.innerHTML = (endTime - startTime) + 'ms'
-    $record.innerHTML += `\n节点数:${domNum}`.padEnd(20, '  ').substr(0, 20) + `耗时:${endTime - startTime}` + 'ms'
+    $useTime.innerHTML = useTime + 'ms'
+    $record.innerHTML += `\n节点数: ${domNum}，` + `耗时: ${useTime}` + 'ms\n' + '单个 div 耗时: ' + (useTime / domNum).toFixed(4) + 'ms\n'
   })
   $sumDom.innerHTML = document.querySelectorAll('*').length
   $btnCreate.click();

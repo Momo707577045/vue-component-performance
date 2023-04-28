@@ -9,20 +9,20 @@
   <meta name="author" content="毛静文,Momo">
   <meta name="keywords" content="点击复制颜色,毛静文的博客,Momo's Blog">
   <meta name="description" content="点击复制颜色,快速实现效果,快速获取各开发过程中,使用的文件或媒体素材（图片，视频，音频，文件等）,开发不求人">
-  <title>vue-component</title>
+  <title>vue v-for component</title>
   <style>
     .item {
       display: inline-block;
       margin: 4px;
       padding: 4px 0;
       width: 80px;
-      color: #333;
+      color: white;
       font-size: 14px;
       line-height: 15px;
       text-align: center;
       border-radius: 4px;
       white-space: pre-line;
-      border: solid 1px #eeeeee;
+      border: solid 1px #ddd;
       background-color: #3F8BC8;
       transition: 0.3s all;
     }
@@ -40,15 +40,18 @@
 </head>
 
 <body>
-  <div style="margin-bottom: 20px;">
-    div 个数: <input id="domNumStr" type="number" value="10000" style="margin-right: 20px;" />
-    使用 :key 缓存 dom: <input id="useKey" type="checkbox" style="margin-right: 20px;" />
-    <input id="isCreating" type="button" value="生成" style="margin-right: 20px;" />
-    总节点数: <span id="querySelectorAll" style="margin-right: 20px;"></span>
-    耗时: <span id="useTime" style="margin-right: 20px;"></span>
-  </div>
   <div style="display: flex;">
-    <div id="record">运行记录:</div>
+    <div>
+      <div style="margin-bottom: 10px;">
+        div 个数: <input id="domNumStr" type="number" value="10000" style="width: 80px;" />
+        使用 :key 缓存 dom: <input id="useKey" type="checkbox" />
+        <input id="isCreating" type="button" value="生成" />
+        <br />
+        总节点数: <span id="querySelectorAll" style="margin-right: 20px;"></span>
+        耗时: <span id="useTime" style="margin-right: 20px;"></span>
+      </div>
+      <div id="record">运行记录:</div>
+    </div>
     <section id="app" v-cloak>
       <container-component v-for="index in domNum" :key="randomKey + '' + index"
         :show-str="currentTimeStr + '\n' + (domNum - index).toString().padStart(domNum.length, 0)" />
@@ -98,7 +101,7 @@
             document.getElementById('isCreating').disabled = false;
             document.getElementById('useTime').innerHTML = useTime + 'ms'
             document.getElementById('querySelectorAll').innerHTML = document.querySelectorAll('*').length
-            document.getElementById('record').innerHTML += `\n节点数:${this.domNum}，` + `${useKey ? '' : '不'}` + '使用 :key 缓存节点，' + `耗时:${useTime}` + 'ms'
+            document.getElementById('record').innerHTML += `\n节点数: ${this.domNum}，` + `${useKey ? '' : '不'}` + '使用 key 缓存节点，' + `耗时: ${useTime}` + 'ms\n' + '单个 div component 耗时: ' + (useTime / this.domNum).toFixed(4) + 'ms\n'
           })
         }, 100)
       },
