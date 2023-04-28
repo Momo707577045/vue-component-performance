@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="author" content="毛静文,Momo">
+  <meta name="keywords" content="点击复制颜色,毛静文的博客,Momo's Blog">
+  <meta name="description" content="点击复制颜色,快速实现效果,快速获取各开发过程中,使用的文件或媒体素材（图片，视频，音频，文件等）,开发不求人">
+  <title>vue-component</title>
+  <style>
+    .item {
+      display: inline-block;
+      margin: 4px;
+      padding: 4px 0;
+      width: 80px;
+      color: #333;
+      font-size: 14px;
+      line-height: 15px;
+      text-align: center;
+      border-radius: 4px;
+      white-space: pre-line;
+      border: solid 1px #eeeeee;
+      background-color: #3F8BC8;
+      transition: 0.3s all;
+    }
+  </style>
+</head>
+
+<body>
+  <section id="app" v-cloak>
+    <div>
+      div 个数: <input v-model="domNumStr" type="number" />
+      <input @click="create" type="button" value="生成" style="margin-right: 20px;" />
+      document.querySelectorAll: <span style="margin-right: 20px;">{{querySelectorAll}}</span>
+      useTime: <span style="margin-right: 20px;">{{useTime}}</span>
+    </div>
+    <section id="container">
+      <container-component v-for="index in domNum" :key="useKey ? index : currentTimeStr + index" :show-str="currentTimeStr + '\n' + (domNum - index).toString().padStart(domNum.length, 0)" />
+    </section>
+  </section>
+</body>
+
+<!--vue 前端框架-->
+<script src="//upyun.luckly-mjw.cn/lib/vue.js"></script>
+<script>
+  const containerComponent = {
+    template: `<div class="item">{{showStr}}</div>`,
+    props: {
+      showStr: String,
+    },
+  }
+  new Vue({
+    el: '#app',
+    components: {
+      'container-component': containerComponent,
+    },
+    data() {
+      return {
+        useKey: false,
+        domNum: 0,
+        domNumStr: '100000',
+        useTime: '',
+        currentTimeStr: '',
+        querySelectorAll: '',
+      }
+    },
+
+    methods: {
+      create(index) {
+        this.currentTimeStr = new Date().toLocaleTimeString()
+        this.domNum = parseInt(this.domNumStr)
+        const startTime = new Date().getTime()
+        this.$nextTick(() => {
+          this.useTime = new Date().getTime() - startTime;
+          this.querySelectorAll = document.querySelectorAll('*').length
+        })
+      },
+    },
+
+    mounted() {
+      this.querySelectorAll = document.querySelectorAll('*').length
+    },
+
+  })
+</script>
+
+</html>

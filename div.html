@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>dom</title>
+</head>
+<style>
+  .item {
+    display: inline-block;
+    margin: 4px;
+    padding: 4px 0;
+    width: 80px;
+    color: #333;
+    font-size: 14px;
+    line-height: 15px;
+    text-align: center;
+    border-radius: 4px;
+    white-space: pre-line;
+    border: solid 1px #eeeeee;
+    background-color: #3F8BC8;
+    transition: 0.3s all;
+  }
+</style>
+
+<body>
+  <div>
+    div 个数: <input id="domNum" value="100000" type="number" />
+    <input id="btnCreate" type="button" value="生成" style="margin-right: 20px;">
+    document.querySelectorAll: <span id="sumDom" style="margin-right: 20px;">0</span>
+    useTime: <span id="useTime" style="margin-right: 20px;">0</span>
+  </div>
+  <section id="container">
+
+
+  </section>
+</body>
+<script>
+  const $domNum = document.getElementById('domNum')
+  const $useTime = document.getElementById('useTime')
+  const $sumDom = document.getElementById('sumDom')
+  const $btnCreate = document.getElementById('btnCreate')
+  const $container = document.getElementById('container')
+  $btnCreate.addEventListener('click', () => {
+    const startTime = new Date().getTime()
+    $sumDom.innerHTML = '节点生成中...'
+    const $fragment = document.createDocumentFragment();
+    const domNum = parseInt($domNum.value) || 0;
+    const timeStr = new Date().toLocaleTimeString();
+    for (let index = domNum; index > 0; index--) {
+      const $div = document.createElement('div')
+      $div.classList.add('item')
+      $div.innerHTML = timeStr + '\n' + index.toString().padStart($domNum.value.length, 0)
+      $fragment.appendChild($div)
+    }
+    const endTime = new Date().getTime()
+    $container.innerHTML = ''
+    $container.appendChild($fragment)
+    $sumDom.innerHTML = document.querySelectorAll('*').length
+    $useTime.innerHTML = endTime - startTime
+  })
+  $sumDom.innerHTML = document.querySelectorAll('*').length
+</script>
+
+</html>
