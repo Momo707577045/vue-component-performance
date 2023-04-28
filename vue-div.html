@@ -7,66 +7,67 @@
     content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="author" content="毛静文,Momo">
-  <meta name="keywords" content="点击复制颜色,毛静文的博客,Momo's Blog">
-  <meta name="description" content="点击复制颜色,快速实现效果,快速获取各开发过程中,使用的文件或媒体素材（图片，视频，音频，文件等）,开发不求人">
-  <title>vue v-for div</title>
-  <style>
-    .item {
-      display: inline-block;
-      margin: 4px;
-      padding: 4px 0;
-      width: 80px;
-      color: white;
-      font-size: 14px;
-      line-height: 15px;
-      text-align: center;
-      border-radius: 4px;
-      white-space: pre-line;
-      border: solid 1px #ddd;
-      background-color: #3F8BC8;
-      transition: 0.3s all;
-    }
-
-    #record {
-      width: 400px;
-      height: 80vh;
-      padding: 10px;
-      white-space: pre;
-      background-color: #fff;
-      border: solid 1px #ccc;
-      border-radius: 4px;
-    }
-
-    .bottom-tool {
-      position: fixed;
-      right: 20px;
-      bottom: 14px;
-      z-index: 999;
-      width: 200px;
-      text-align: right;
-      display: inline-block;
-    }
-
-    .bottom-tool-item {
-      display: inline-block;
-      margin: 4px 0;
-      background-color: #eff3f6;
-      background-image: linear-gradient(-180deg, #fafbfc, #eff3f6 90%);
-      color: #24292e;
-      border: 1px solid rgba(27, 31, 35, .2);
-      border-radius: 3px;
-      cursor: pointer;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 20px;
-      padding: 6px 12px;
-    }
-
-    .bottom-tool-item:hover {
-      opacity: 0.9;
-    }
-  </style>
+  <meta name="keywords" content="vue,performance,vue性能,vue性能测试">
+  <meta name="description" content="vue,performance,vue性能,vue性能测试,vue组件,vue函数式组件,component,function component,性能">
+  <title>vue生成div性能</title>
 </head>
+
+<style>
+  .item {
+    display: inline-block;
+    margin: 4px;
+    padding: 4px 0;
+    width: 80px;
+    color: white;
+    font-size: 14px;
+    line-height: 15px;
+    text-align: center;
+    border-radius: 4px;
+    white-space: pre-line;
+    border: solid 1px #ddd;
+    background-color: #3F8BC8;
+    transition: 0.3s all;
+  }
+
+  #record {
+    width: 400px;
+    height: 80vh;
+    padding: 10px;
+    white-space: pre;
+    background-color: #fff;
+    border: solid 1px #ccc;
+    border-radius: 4px;
+  }
+
+  .bottom-tool {
+    position: fixed;
+    right: 20px;
+    bottom: 14px;
+    z-index: 999;
+    width: 200px;
+    text-align: right;
+    display: inline-block;
+  }
+
+  .bottom-tool-item {
+    display: inline-block;
+    margin: 4px 0;
+    background-color: #eff3f6;
+    background-image: linear-gradient(-180deg, #fafbfc, #eff3f6 90%);
+    color: #24292e;
+    border: 1px solid rgba(27, 31, 35, .2);
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    padding: 6px 12px;
+  }
+
+  .bottom-tool-item:hover {
+    opacity: 0.9;
+  }
+</style>
 
 <body>
   <h1 style="text-align: center;">vue for 生成 div 的性能测试</h1>
@@ -90,7 +91,8 @@
 
   <!--右下角外链工具栏-->
   <div class="bottom-tool">
-    <a class="bottom-tool-item" target="_blank" href="https://github.com/Momo707577045/vue-component-performance/blob/main/vue-div.html">github</a><br/>
+    <a class="bottom-tool-item" target="_blank"
+      href="https://github.com/Momo707577045/vue-component-performance/blob/main/vue-div.html">github</a><br />
     <a class="bottom-tool-item" target="_blank" href="http://blog.luckly-mjw.cn/tool-show/index.html">其他实用工具</a>
     <a class="bottom-tool-item" target="_blank" href="./pure-js.html">纯 js 性能示例</a>
     <a class="bottom-tool-item" target="_blank" href="./vue-component.html">vue普通组件性能示例</a>
@@ -100,7 +102,6 @@
 
 <!--vue 前端框架-->
 <script src="//upyun.luckly-mjw.cn/lib/vue.js"></script>
-
 <script>
   const vueInstance = new Vue({
     el: '#app',
@@ -143,5 +144,4 @@
   vueInstance.create();
   document.getElementById('isCreating').addEventListener('click', vueInstance.create)
 </script>
-
 </html>

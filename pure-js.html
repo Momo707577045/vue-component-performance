@@ -3,10 +3,15 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>pure js</title>
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="author" content="毛静文,Momo">
+  <meta name="keywords" content="vue,performance,vue性能,vue性能测试">
+  <meta name="description" content="vue,performance,vue性能,vue性能测试,vue组件,vue函数式组件,component,function component,性能">
+  <title>纯js生成dom性能</title>
 </head>
+
 <style>
   .item {
     display: inline-block;
@@ -81,13 +86,15 @@
   </div>
   <!--右下角外链工具栏-->
   <div class="bottom-tool">
-    <a class="bottom-tool-item" target="_blank" href="https://github.com/Momo707577045/vue-component-performance/blob/main/pure-js.html">github</a><br/>
+    <a class="bottom-tool-item" target="_blank"
+      href="https://github.com/Momo707577045/vue-component-performance/blob/main/pure-js.html">github</a><br />
     <a class="bottom-tool-item" target="_blank" href="http://blog.luckly-mjw.cn/tool-show/index.html">其他实用工具</a>
     <a class="bottom-tool-item" target="_blank" href="./vue-div.html">vue-for-div性能示例</a>
     <a class="bottom-tool-item" target="_blank" href="./vue-component.html">vue普通组件性能示例</a>
     <a class="bottom-tool-item" target="_blank" href="./vue-func-component.html">vue函数式组件性能示例</a>
   </div>
 </body>
+
 <script>
   const $record = document.getElementById('record')
   const $domNum = document.getElementById('domNum')
@@ -117,5 +124,4 @@
   $sumDom.innerHTML = document.querySelectorAll('*').length
   $btnCreate.click();
 </script>
-
 </html>
