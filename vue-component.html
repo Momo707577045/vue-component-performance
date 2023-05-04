@@ -13,6 +13,23 @@
 </head>
 
 <style>
+  .m-p-help {
+    position: fixed;
+    right: 50px;
+    top: 50px;
+    width: 30px;
+    height: 30px;
+    color: #666666;
+    z-index: 2;
+    line-height: 30px;
+    font-weight: bolder;
+    border-radius: 50%;
+    border: 1px solid rgba(27, 31, 35, .2);
+    cursor: pointer;
+    text-align: center;
+    background-color: #eff3f6;
+    background-image: linear-gradient(-180deg, #fafbfc, #eff3f6 90%);
+  }
   .item {
     display: inline-block;
     margin: 4px;
@@ -70,6 +87,7 @@
 </style>
 
 <body>
+  <a class="m-p-help" target="_blank" href="https://github.com/Momo707577045/vue-component-performance">?</a>
   <h1 style="text-align: center;">vue for 生成只包含单个 div 的 普通组件 的性能测试</h1>
   <div style="display: flex;">
     <section id="app" v-cloak>
@@ -101,6 +119,15 @@
 
 <!--vue 前端框架-->
 <script src="//upyun.luckly-mjw.cn/lib/vue.js"></script>
+<script>
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?1f12b0865d866ae1b93514870d93ce89";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
 <script>
   const divComponent = {
     template: `<div class="item">{{showStr}}</div>`,

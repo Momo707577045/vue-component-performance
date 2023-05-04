@@ -3,16 +3,16 @@
 - dom 节点数量对内存影响没想象中大，js 变量才是内存占用的元凶
 - 内存占用及运行性能对比：原生 js < v-for div ≈ v-for 函数式组件 < v-for 普通组件
 - 去虚拟 dom 化框架正在崛起，成为一种新的选择
-![](./imgs/000.png)
+![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/000.png)
 
 
 ### dom 节点数量对内存影响没想象中大（十万 div 仅占用 400mb）
 - [测试示例](https://blog.luckly-mjw.cn/tool-show/vue-component-performance/pure-js.html)
 - 生成 100,000（十万）个 div，内存占用仅 400mb，平均每个 div 占用内存 400 * 1024 kb / 100,000 = 4kb
-![](./imgs/001.png)
+![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/001.png)
 - 注意，这里内存占用是静态状态内存，即 div 生成完成后等待一会（约1min）内存回收完成后的内存占用，div 生成过程中会产生中间变量，内存占用会比静态时高。
 - 如果短时间多少清空 div 再重新生成，会导致内存占用变大
-![](./imgs/002.png)
+![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/002.png)
 
 
 ### 组件过多，或许才是 vue 项目内存占用大、运行慢的原因
@@ -21,15 +21,15 @@
 [「纯 js 渲染 div」运行示例](https://blog.luckly-mjw.cn/tool-show/vue-component-performance/pure-js.html)，[对应源码](https://github.com/Momo707577045/vue-component-performance/blob/main/pure-js.html)
 - 10,000（一万）个 div
   - 渲染耗时：26ms，平均单个div渲染耗时：0.0026ms
-  ![](./imgs/003.png)
+  ![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/003.png)
 
 - 100,000（十万）个 div
   - 渲染耗时：265ms，平均单个div渲染耗时：0.0027ms
-  ![](./imgs/004.png)
+  ![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/004.png)
 
 - 100,000（十万）个 div
   - 占用内存：528mb，平均单个占用内存：528 * 1024 / 100,000 = 5.4kb
-  ![](./imgs/002.png)
+  ![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/002.png)
 
 
 
@@ -37,49 +37,49 @@
 - 10,000（一万）个 div
   - 使用 key 缓存节点渲染耗时：61ms，平均单个div渲染耗时：0.0061ms
   - 不使用 key 缓存节点渲染耗时：91ms，平均单个div渲染耗时：0.0091ms
-  ![](./imgs/007.png)
+  ![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/007.png)
   
 
 - 100,000（十万）个 div
   - 使用 key 缓存节点渲染耗时：499ms，平均单个div渲染耗时：0.005ms
   - 不使用 key 缓存节点渲染耗时：286ms，平均单个div渲染耗时：0.0029ms
-  ![](./imgs/008.png)
+  ![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/008.png)
 
 - 100,000（十万）个 div
   - 占用内存：586mb，平均单个占用内存：586 * 1024 / 100,000 = 6kb
-  ![](./imgs/009.png)
+  ![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/009.png)
 
 [「v-for 渲染函数式组件」运行示例](https://blog.luckly-mjw.cn/tool-show/vue-component-performance/vue-func-component.html)，[对应源码](https://github.com/Momo707577045/vue-component-performance/blob/main/vue-func-component.html)
  - 10,000（一万）个 div
   - 使用 key 缓存节点渲染耗时：85ms，平均单个div渲染耗时：0.0085ms
   - 不使用 key 缓存节点渲染耗时：82ms，平均单个div渲染耗时：0.0082ms
-  ![](./imgs/010.png)
+  ![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/010.png)
   
 
 - 100,000（十万）个 div
   - 使用 key 缓存节点渲染耗时：392ms，平均单个div渲染耗时：0.0039ms
   - 不使用 key 缓存节点渲染耗时：505ms，平均单个div渲染耗时：0.005ms
-  ![](./imgs/011.png)
+  ![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/011.png)
 
 - 100,000（十万）个 div
   - 占用内存：654mb，平均单个占用内存：654 * 1024 / 100,000 = 6.7kb
-  ![](./imgs/012.png)
+  ![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/012.png)
 
 [「v-for 渲染普通组件」运行示例](https://blog.luckly-mjw.cn/tool-show/vue-component-performance/vue-component.html)，[对应源码](https://github.com/Momo707577045/vue-component-performance/blob/main/vue-component.html)
 - 10,000（一万）个 div
   - 使用 key 缓存节点渲染耗时：122ms，平均单个div渲染耗时：0.0122ms
   - 不使用 key 缓存节点渲染耗时：360ms，平均单个div渲染耗时：0.0325ms
-  ![](./imgs/013.png)
+  ![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/013.png)
   
 
 - 100,000（十万）个 div
   - 使用 key 缓存节点渲染耗时：918ms，平均单个div渲染耗时：0.0092ms
   - 不使用 key 缓存节点渲染耗时：13881ms(13.8s)，平均单个div渲染耗时：0.1388ms
-  ![](./imgs/014.png)
+  ![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/014.png)
 
 - 100,000（十万）个 div
   - 占用内存：907mb，平均单个占用内存：907 * 1024 / 100,000 = 9.3kb
-  ![](./imgs/015.png)
+  ![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/015.png)
 
 ### 通过上述测试可得
 
@@ -99,25 +99,22 @@
 - 纯 js 渲染 div 最快，使用 v-for div，v-for 函数式组件的渲染耗时至少是 纯 js 渲染耗时的两倍，这是由于虚拟节点 vnode 需要执行 diff 算法决定的。
 
 ### 去虚拟化正在崛起
-*既然 vnode 计算如此消耗性能，那可否舍弃 vnode 来提高性能呢？答案是肯定的，svelte，solid 就是这么做的*
+*既然 vnode 计算如此消耗性能，那可否舍弃 vnode 来提高性能呢？答案是肯定的，svelte（类似 vue），solid(类似 react) 就是这么做的*
+[Svelte](https://www.svelte.cn/)，[新兴前端框架 Svelte 从入门到原理](https://zhuanlan.zhihu.com/p/350507037)，[Virtual DOM is pure overhead](https://www.svelte.cn/blog/virtual-dom-is-pure-overhead)，[虚拟DOM是纯粹的浪费](https://juejin.cn/post/6844904137826533384)
+![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/105.png)
+![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/101.png)
+
+
+[Solidjs](https://www.solidjs.com/)，[SolidJS入门](https://juejin.cn/post/7041485386010329118)
+![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/104.png)
+![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/106.png)
+![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/102.png)
+
+### [对于 Svelte，尤雨溪​怎么看](https://www.zhihu.com/question/53150351/answer/133912199)
+![](http://upyun.luckly-mjw.cn/Assets/vue-component-performance/107.png)
 
 
 
 
-https://www.svelte.cn/
-https://www.svelte.cn/blog/virtual-dom-is-pure-overhead
-https://www.solidjs.com/guides/rendering
-https://www.zhihu.com/question/53150351/answer/133912199
-https://zhuanlan.zhihu.com/p/350507037
-https://freefe.cc/2022/03/25/virtual-dom-is-pure-overhead/
-既然 vue 组件如此消耗性能，那使用虚拟 dom 技术是否仍是最优选择呢，solid 提供了另外一个方向
-
-
-
-
-
-
-
-vnode 的谎言文章
 
 
