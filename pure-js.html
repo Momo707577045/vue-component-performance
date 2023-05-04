@@ -101,18 +101,21 @@
   const $useTime = document.getElementById('useTime')
   const $sumDom = document.getElementById('sumDom')
   const $btnCreate = document.getElementById('btnCreate')
-  const $container = document.getElementById('container')
   $btnCreate.addEventListener('click', () => {
+    const $container = document.getElementById('container')
     const startTime = new Date().getTime()
     $sumDom.innerHTML = '节点生成中...'
     const $fragment = document.createDocumentFragment();
     const domNum = parseInt($domNum.value) || 0;
     const timeStr = new Date().toLocaleTimeString() + '.' + (new Date().getTime()).toString().substr(-2)
+    let $div = null
+    let strLength = $domNum.value.length
     for (let index = domNum; index > 0; index--) {
-      const $div = document.createElement('div')
+      $div = document.createElement('div')
       $div.classList.add('item')
-      $div.innerHTML = timeStr + '\n' + index.toString().padStart($domNum.value.length, 0)
+      $div.innerHTML = timeStr + '\n' + index.toString().padStart(strLength, 0)
       $fragment.appendChild($div)
+      delete $div; // 主动回收内存
     }
     const useTime = new Date().getTime() - startTime
     $container.innerHTML = ''
@@ -120,6 +123,8 @@
     $sumDom.innerHTML = document.querySelectorAll('*').length
     $useTime.innerHTML = useTime + 'ms'
     $record.innerHTML += `\n节点数: ${domNum}，` + `耗时: ${useTime}` + 'ms\n' + '单个 div 耗时: ' + (useTime / domNum).toFixed(4) + 'ms\n'
+    delete $fragment; // 主动回收内存
+    delete $container; // 主动回收内存
   })
   $sumDom.innerHTML = document.querySelectorAll('*').length
   $btnCreate.click();
